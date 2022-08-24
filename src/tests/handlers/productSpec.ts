@@ -7,12 +7,12 @@ const request = supertest(app);
 describe('- Product Handler:', () => {
   let product_id: number;
   const product: Product = {
-    name: 'Muñeca Mimish',
-    price: 25.0,
-    category: 'Toy',
+    name: 'cat cup',
+    price: 1.44,
+    category: 'kids',
   };
   const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJtYXJpIiwiZmlyc3RfbmFtZSI6Ik1hcmllbGEiLCJsYXN0X25hbWUiOiJEZWwgQmFycmlvIiwiaWF0IjoxNjU4NjQ0NDg1fQ.IDW55pCtF9bNgzBPCkWahAXGm7XhedfJ--3NF7ckNlg';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik1haG1vdWQiLCJsYXN0X25hbWUiOiJFbGJhZ291cnkifQ.j0WEkKy08SZD9ZD6mDaLcYFSPpP4e93rZsfoOj26Hqk';
 
   it('Create a product', async () => {
     const response = await request
@@ -21,9 +21,9 @@ describe('- Product Handler:', () => {
       .send(product);
     const newProduct = response.body;
     expect(response.status).toBe(201);
-    expect(newProduct.name).toBe('Muñeca Mimish');
-    expect(newProduct.price).toBe('25');
-    expect(newProduct.category).toBe('Toy');
+    expect(newProduct.name).toBe('cat cup');
+    expect(newProduct.price).toBe('1.44');
+    expect(newProduct.category).toBe('kids');
     product_id = newProduct.id as number;
   });
 
