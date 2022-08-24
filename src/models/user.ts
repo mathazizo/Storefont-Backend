@@ -19,7 +19,7 @@ export class UserStore {
     try {
       const conn = await client.connect();
       const sql =
-        'INSERT INTO users (first_name, last_name, password_hash) VALUES ($1, $2, $3) RETURNING id, first_name, last_name;';
+        'INSERT INTO users (first_name, last_name, password) VALUES ($1, $2, $3) RETURNING id, first_name, last_name;';
       const { first_name, last_name, password } = user;
       const password_hash = await bcrypt.hash(password + pepper, saltRounds);
       const result = await client.query(sql, [
@@ -100,12 +100,9 @@ export class UserStore {
       const selected_user = result.rows[0];
 
       if (
-        await bcrypt.compare(
-          user.password + pepper,
-          selected_user.password_hash
-        )
+        await bcrypt.compare(user.password + pepper, selected_user.password)
       ) {
-        delete selected_user.password_hash;
+        delete selected_user.password;
         return selected_user;
       }
       throw new Error('Password incorrect');

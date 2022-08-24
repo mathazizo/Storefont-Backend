@@ -86,22 +86,22 @@ export class OrderStore {
   async currentOrder(user_id: number): Promise<Order[]> {
     try {
       const conn = await Client.connect();
-      const sql = `SELECT * FROM orders WHERE user_id = $1 AND status = 'open';`;
+      const sql = `SELECT * FROM orders WHERE user_id = $1 AND status = 'active';`;
       const result = await conn.query(sql, [user_id]);
       conn.release();
       if (result.rows.length === 0) {
-        throw new Error(`Could not find open order for user: ${user_id}`);
+        throw new Error(`Could not find active order for user: ${user_id}`);
       }
       return result.rows;
     } catch (err) {
-      throw new Error(`Could not get open orders by user id: ${err}`);
+      throw new Error(`Could not get active orders by user id: ${err}`);
     }
   }
 
   async completedOrders(user_id: number): Promise<Order[]> {
     try {
       const conn = await Client.connect();
-      const sql = `SELECT * FROM orders WHERE user_id = $1 AND status = 'completed';`;
+      const sql = `SELECT * FROM orders WHERE user_id = $1 AND status = 'complete';`;
       const result = await conn.query(sql, [user_id]);
       conn.release();
       return result.rows;
