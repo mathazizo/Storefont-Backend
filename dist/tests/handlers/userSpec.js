@@ -14,9 +14,9 @@ describe('- User Handler:', () => {
     let user_id;
     let token;
     const user = {
-        first_name: 'Mariela',
-        last_name: 'Del Barrio',
-        password: 'oculto',
+        first_name: 'Mahmoud',
+        last_name: 'Elbagoury',
+        password: 'password',
     };
     it('Create a user', async () => {
         const response = await request.post('/users').send(user);

@@ -6,8 +6,10 @@
   "scripts": {
     "start": "ts-node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "npx tsc && jasmine",
+    "test": "db-migrate --env test down && db-migrate --env test up && cross-env ENV=test npx tsc && cross-env ENV=test jasmine",
     "tsc": "rimraf ./dist && tsc",
+    "db-up": "db-migrate up",
+    "db-down": "db-migrate down",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "lint-fix": "eslint . --ext .ts --fix"
@@ -35,6 +37,7 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.34.0",
     "@typescript-eslint/parser": "^5.34.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
