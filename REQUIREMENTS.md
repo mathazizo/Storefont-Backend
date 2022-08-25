@@ -27,11 +27,25 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 - [OPTIONAL] category
 
+TABLE products(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    price NUMERIC NOT NULL,
+    category VARCHAR(50)
+);
+
 #### User
 - id
 - first_Name
 - last_Name
 - password
+
+TABLE users(
+    id SERIAL PRIMARY KEY,
+    first_Name VARCHAR(50) NOT NULL,
+    last_Name VARCHAR(50) NOT NULL,
+    password VARCHAR(60) NOT NULL
+);
 
 #### Orders
 - id
@@ -40,3 +54,21 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+TYPE order_status AS ENUM ('active', 'complete');
+
+TABLE orders(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    status order_status NOT NULL,
+     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE 
+);
+
+TABLE order_products(
+    id SERIAL PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE ON UPDATE CASCADE,
+      FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE 
+ 
+);

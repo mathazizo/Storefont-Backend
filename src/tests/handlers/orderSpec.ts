@@ -55,7 +55,10 @@ describe('- Order Handler:', () => {
   });
 
   it('Create an order', async () => {
-    const response = await request.post('/orders').send(order);
+    const response = await request
+      .post('/orders')
+      .set('Authorization', 'Bearer ' + token)
+      .send(order);
     expect(response.status).toBe(201);
     expect(response.body.user_id).toEqual(order.user_id);
     expect(response.body.status).toEqual(order.status);
@@ -64,14 +67,18 @@ describe('- Order Handler:', () => {
   });
 
   it('Get all orders', async () => {
-    const response = await request.get('/orders');
+    const response = await request
+      .get('/orders')
+      .set('Authorization', 'Bearer ' + token);
     expect(response.status).toBe(200);
     const orders = response.body as Order[];
     expect(orders[0]).toBeTruthy();
   });
 
   it('Show order', async () => {
-    const response = await request.get(`/orders/${order_id}`);
+    const response = await request
+      .get(`/orders/${order_id}`)
+      .set('Authorization', 'Bearer ' + token);
     expect(response.status).toBe(200);
     const order_1 = response.body as Order;
     expect(order_1.id).toEqual(order_id);
@@ -130,6 +137,7 @@ describe('- Order Handler:', () => {
     };
     const response = await request
       .put(`/orders/${update_order.id}`)
+      .set('Authorization', 'Bearer ' + token)
       .send(update_order);
     expect(response.status).toBe(200);
     const order_1 = response.body as Order;

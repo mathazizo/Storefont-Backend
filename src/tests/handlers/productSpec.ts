@@ -1,6 +1,7 @@
 import app from '../../server';
 import { Product } from '../../models/product';
 import supertest from 'supertest';
+import { User } from '../../models/user';
 
 const request = supertest(app);
 
@@ -11,9 +12,16 @@ describe('- Product Handler:', () => {
     price: 1.44,
     category: 'kids',
   };
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik1haG1vdWQiLCJsYXN0X25hbWUiOiJFbGJhZ291cnkifQ.j0WEkKy08SZD9ZD6mDaLcYFSPpP4e93rZsfoOj26Hqk';
-
+  let token = '';
+  beforeAll(async () => {
+    const user: User = {
+      first_name: 'Mahmoud',
+      last_name: 'Elbagoury',
+      password: 'password',
+    };
+    const new_user = await request.post('/users').send(user);
+    token = new_user.body;
+  });
   it('Create a product', async () => {
     const response = await request
       .post('/products')

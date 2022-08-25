@@ -168,11 +168,11 @@ const deleteProduct = async (req: Request, res: Response) => {
 };
 
 const orderRoutes = (app: express.Application) => {
-  app.post('/orders', create);
-  app.get('/orders', index);
-  app.get('/orders/:id', show);
-  app.put('/orders/:id', update);
-  app.delete('/orders/:id', del);
+  app.post('/orders', verifyToken, create);
+  app.get('/orders', verifyToken, index);
+  app.get('/orders/:id', verifyToken, show);
+  app.put('/orders/:id', verifyToken, update);
+  app.delete('/orders/:id', verifyToken, del);
   app.get('/orders/open/user/:id', verifyToken, currentOrder);
   app.get('/orders/completed/user/:id', verifyToken, completedOrders);
   app.post('/orders/:id/products', verifyToken, addProduct);
