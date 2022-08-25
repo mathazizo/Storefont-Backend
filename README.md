@@ -17,7 +17,7 @@ the environmental variables that needs to be set in a `.env` file
 - POSTGRES_DB=
 - POSTGRES_DB_dev=
 - POSTGRES_USER=
-- POSTGRES_PWD=P@
+- POSTGRES_PWD=
 - ENV=
 - BCRYPT_PASSWORD=
 - SALT_ROUNDS=
