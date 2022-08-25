@@ -13,15 +13,15 @@ The app on port 3000 and the database on the standard 5432 port
 ## Enviromental Variables Set up
 the environmental variables that needs to be set in a `.env` file
 
-POSTGRES_HOST=
-POSTGRES_DB=
-POSTGRES_DB_dev=
-POSTGRES_USER=
-POSTGRES_PWD=P@
-ENV=
-BCRYPT_PASSWORD=
-SALT_ROUNDS=
-SECRET_TOKEN=
+- POSTGRES_HOST=
+- POSTGRES_DB=
+- POSTGRES_DB_dev=
+- POSTGRES_USER=
+- POSTGRES_PWD=P@
+- ENV=
+- BCRYPT_PASSWORD=
+- SALT_ROUNDS=
+- SECRET_TOKEN=
 
 ## Database
 database on the standard 5432 port
