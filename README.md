@@ -25,4 +25,22 @@ the environmental variables that needs to be set in a `.env` file
 
 ## Database
 database on the standard 5432 port
+Create Databases
+
+We shall create the dev and test database.
+
+    connect to the default postgres database as the server's root user psql -U postgres
+    In psql run the following to create a user
+        `CREATE USER shopping_user WITH PASSWORD 'password';`
+    In psql run the following to create the dev and test database
+        `CREATE DATABASE test;`
+        `CREATE DATABASE dev;`
+    Connect to the databases and grant all privileges
+        Grant for dev database
+            \c shopping
+            `GRANT ALL PRIVILEGES ON DATABASE dev TO shopping_user;`
+        Grant for test database
+            \c shopping_test
+            `GRANT ALL PRIVILEGES ON DATABASE test TO shopping_user;`
+
 you can start your migration by use the following command `npm run db-up`
