@@ -56,6 +56,7 @@ describe('- Product Handler:', () => {
     };
     const newProduct = await request
       .put(`/products/${product_id}`)
+      .set('Authorization', 'Bearer ' + token)
       .send(updateProduct);
     expect(newProduct.body.name).toBe('apple watch');
     expect(newProduct.body.price).toBe('200.5');
@@ -63,7 +64,9 @@ describe('- Product Handler:', () => {
   });
 
   it('Delete product with id 1', async () => {
-    const product = await request.delete(`/products/${product_id}`);
+    const product = await request
+      .delete(`/products/${product_id}`)
+      .set('Authorization', 'Bearer ' + token);
     const select = await request.get(`/products/${product_id}`);
     expect(product.status).toBe(200);
     expect(product.body.id).toBe(product_id);

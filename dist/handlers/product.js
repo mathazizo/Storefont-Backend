@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const product_1 = require("../models/product");
+const user_1 = require("./user");
 const store = new product_1.ProductStore();
 const create = async (req, res) => {
     try {
@@ -57,10 +58,10 @@ const del = async (req, res) => {
     }
 };
 const productRoutes = (app) => {
-    app.post('/products', create);
+    app.post('/products', user_1.verifyToken, create);
     app.get('/products', index);
     app.get('/products/:id', show);
-    app.put('/products/:id', update);
-    app.delete('/products/:id', del);
+    app.put('/products/:id', user_1.verifyToken, update);
+    app.delete('/products/:id', user_1.verifyToken, del);
 };
 exports.default = productRoutes;

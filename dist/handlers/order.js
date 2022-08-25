@@ -178,11 +178,11 @@ const deleteProduct = async (req, res) => {
     }
 };
 const orderRoutes = (app) => {
-    app.post('/orders', create);
-    app.get('/orders', index);
-    app.get('/orders/:id', show);
-    app.put('/orders/:id', update);
-    app.delete('/orders/:id', del);
+    app.post('/orders', user_1.verifyToken, create);
+    app.get('/orders', user_1.verifyToken, index);
+    app.get('/orders/:id', user_1.verifyToken, show);
+    app.put('/orders/:id', user_1.verifyToken, update);
+    app.delete('/orders/:id', user_1.verifyToken, del);
     app.get('/orders/open/user/:id', user_1.verifyToken, currentOrder);
     app.get('/orders/completed/user/:id', user_1.verifyToken, completedOrders);
     app.post('/orders/:id/products', user_1.verifyToken, addProduct);

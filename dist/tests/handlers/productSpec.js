@@ -13,7 +13,16 @@ describe('- Product Handler:', () => {
         price: 1.44,
         category: 'kids',
     };
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik1haG1vdWQiLCJsYXN0X25hbWUiOiJFbGJhZ291cnkifQ.j0WEkKy08SZD9ZD6mDaLcYFSPpP4e93rZsfoOj26Hqk';
+    let token = '';
+    beforeAll(async () => {
+        const user = {
+            first_name: 'Mahmoud',
+            last_name: 'Elbagoury',
+            password: 'password',
+        };
+        const new_user = await request.post('/users').send(user);
+        token = new_user.body;
+    });
     it('Create a product', async () => {
         const response = await request
             .post('/products')
@@ -45,13 +54,16 @@ describe('- Product Handler:', () => {
         };
         const newProduct = await request
             .put(`/products/${product_id}`)
+            .set('Authorization', 'Bearer ' + token)
             .send(updateProduct);
         expect(newProduct.body.name).toBe('apple watch');
         expect(newProduct.body.price).toBe('200.5');
         expect(newProduct.body.category).toBe('watch');
     });
     it('Delete product with id 1', async () => {
-        const product = await request.delete(`/products/${product_id}`);
+        const product = await request
+            .delete(`/products/${product_id}`)
+            .set('Authorization', 'Bearer ' + token);
         const select = await request.get(`/products/${product_id}`);
         expect(product.status).toBe(200);
         expect(product.body.id).toBe(product_id);
